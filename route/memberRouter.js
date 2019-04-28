@@ -5,7 +5,7 @@ var express = require('express');
 var router = express.Router();
 var schema = require('../schema/commonSchema');
 
-router.get('/login', function (req, res) {    
+router.post('/login', function (req, res) {    
     console.log("/login");
     var params = req.query;
     console.log("id = ",params.id, " pw = ",params.pw);
@@ -26,7 +26,7 @@ router.get('/login', function (req, res) {
         }
     });
 });
-router.get('/join', function (req, res) {    
+router.post('/join', function (req, res) {    
     console.log("/join ");
     var params = req.query;
     console.log("id = ",params.id, " pw = ",params.pw);

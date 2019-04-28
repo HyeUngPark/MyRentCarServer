@@ -8,6 +8,6 @@ router.get('/', function (req, res) {
     console.log("/호출!!!");
 
     // console.log("job ===\n",req.job);
-    res.json({login:'success'});
+    // res.json({login:'success'});
 });
 module.exports = router;
