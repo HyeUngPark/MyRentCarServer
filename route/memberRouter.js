@@ -21,7 +21,7 @@ router.post('/login', function (req, res) {
         if (err) 
             return res.status(500).send("select error >> "+err)
         if(result.length>0){
-            res.json({"loginCode":'01'});
+            res.json({"loginCode":'01',name:result.name});
         }else{
             res.json({"loginCode":"02"})
         }
