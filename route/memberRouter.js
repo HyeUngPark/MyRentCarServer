@@ -13,8 +13,8 @@ router.post('/login', function (req, res) {
     schema.find({
         workSection : 'MEMBER'
         ,subSchema:{
-            id : params.id
-            ,pw : params.pw
+            id : params.loginId
+            ,pw : params.password
         }
     },function(err, result) {
         if (err) 
@@ -34,8 +34,8 @@ router.post('/join', function (req, res) {
         workSection: 'MEMBER' // 업무 구분 PRODUCT(상품) ORDER(주문) MEMBER(회원)
         ,firstWriteDate: new Date() // 최초작성일
         ,subSchema:{ // 업무별 하위 스키마
-            id : params.id
-            ,pw : params.pw
+            id : params.loginId
+            ,pw : params.password
         }
     });
     console.log(result);
