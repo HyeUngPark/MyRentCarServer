@@ -10,9 +10,7 @@ router.get('/idCheck', function (req, res) {
 
     schema.find({
         workSection : 'MEMBER'
-        ,subSchema:{
-            id : params.loginId
-        } 
+        ,"subSchema.id" : params.loginId
     },function(err, result){
         if (err){
             console.log('error \n',err);
@@ -32,10 +30,8 @@ router.post('/login', function (req, res) {
 
     schema.find({
         workSection : 'MEMBER'
-        ,subSchema:{
-            id : params.loginId
-            ,pw : params.password
-        }
+        ,"subSchema.id": params.loginId
+        ,"subSchema.pw": params.password
     },function(err, result) {
         if (err){
             console.log('error \n',err);
