@@ -1,0 +1,27 @@
+{
+  "name": "myrentcarserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HyeUngPark/MyRentCarServer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HyeUngPark/MyRentCarServer/issues"
+  },
+  "homepage": "https://github.com/HyeUngPark/MyRentCarServer#readme",
+  "dependencies": {
+    "dotenv": "^7.0.0",
+    "env": "0.0.2",
+    "express": "^4.16.4",
+    "mongoose": "^5.5.4",
+    "nodemon": "^1.18.11"
+  }
+}
