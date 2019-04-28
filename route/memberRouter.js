@@ -15,6 +15,7 @@ router.post('/login', function (req, res) {
         ,subSchema:{
             id : params.loginId
             ,pw : params.password
+            ,name : params.name
         }
     },function(err, result) {
         if (err) 
@@ -36,11 +37,14 @@ router.post('/join', function (req, res) {
         ,subSchema:{ // 업무별 하위 스키마
             id : params.loginId
             ,pw : params.password
+            ,name : params.name
+
         }
     });
     console.log(result);
     res.json({
             login :'success'
+            ,name : params.name
         });
 });
 module.exports = router;
