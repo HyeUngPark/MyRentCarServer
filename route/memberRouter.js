@@ -5,6 +5,25 @@ var express = require('express');
 var router = express.Router();
 var schema = require('../schema/commonSchema');
 
+router.get('/idCheck', function (req, res) {    
+    schema.find({
+        workSection : 'MEMBER'
+        ,subSchema:{
+            id : params.loginId
+        } 
+    },function(err, result){
+        if (err){
+            console.log('error \n',err);
+            return res.status(500).send("select error >> "+err)
+        } 
+        if(result.length>0){
+            res.json({"idCode":"02"})
+        }else{
+            res.json({"idCode":'01'});
+        } 
+    });
+});
+
 router.post('/login', function (req, res) {    
     console.log("/login");
     var params = req.query;
@@ -14,7 +33,6 @@ router.post('/login', function (req, res) {
         ,subSchema:{
             id : params.loginId
             ,pw : params.password
-            ,name : params.name
         }
     },function(err, result) {
         if (err){
