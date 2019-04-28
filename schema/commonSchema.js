@@ -21,7 +21,7 @@ var schema = new mongoose.Schema({
         default: Date.now 
     }
     ,subSchema:{ // 업무별 하위 스키마
-        type : [mongoose.Schema.Types.Mixed ]
+        type : mongoose.Schema.Types.Mixed
     }
 });
 

@@ -8,7 +8,6 @@ var schema = require('../schema/commonSchema');
 router.post('/login', function (req, res) {    
     console.log("/login");
     var params = req.query;
-    console.log("id = ",params.id, " pw = ",params.pw);
 
     schema.find({
         workSection : 'MEMBER'
@@ -18,8 +17,10 @@ router.post('/login', function (req, res) {
             ,name : params.name
         }
     },function(err, result) {
-        if (err) 
+        if (err){
+            console.log('error \n',err);
             return res.status(500).send("select error >> "+err)
+        } 
         if(result.length>0){
             res.json({"loginCode":'01',name:result.name});
         }else{
