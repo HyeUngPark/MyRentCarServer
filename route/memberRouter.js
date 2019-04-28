@@ -6,6 +6,8 @@ var router = express.Router();
 var schema = require('../schema/commonSchema');
 
 router.get('/idCheck', function (req, res) {    
+    var params = req.query;
+
     schema.find({
         workSection : 'MEMBER'
         ,subSchema:{
