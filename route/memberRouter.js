@@ -38,7 +38,7 @@ router.get('/idCheck', function(req, res) {
                 return res.status(500).send("select error >> " + err)
             }
             if (result.length > 0) {
-                res.json({ "loginCode": '01', name: result.name });
+                res.json({ "loginCode": '01', name: result.subScheam.name });
             } else {
                 res.json({ "loginCode": "02" })
             }
@@ -81,7 +81,8 @@ router.get('/idCheck', function(req, res) {
                 return res.status(500).send("select error >> " + err)
             }
             if (result.length > 0) {
-                res.json({ "loginCode": '01', "loginId": result.mem_id });
+                console.log(result);
+                res.json({ "loginCode": '01', "loginId": result.subSchema.mem_id });
             } else {
                 res.json({ "loginCode": "02" })
             }
