@@ -17,9 +17,9 @@ router.get('/idCheck', function(req, res) {
         }
         console.log(result);
         if (result.length > 0) {
-            res.json({ "idCode": "02" })
+            res.json({ "returnCode": "02" })
         } else {
-            res.json({ "idCode": '01' });
+            res.json({ "returnCode": '01' });
         }
     });
 });
@@ -38,9 +38,9 @@ router.get('/idCheck', function(req, res) {
                 return res.status(500).send("select error >> " + err)
             }
             if (result.length > 0) {
-                res.json({ "loginCode": '01', name: result.subSchema.name });
+                res.json({ "returnCode": '01', name: result[0].subSchema.name });
             } else {
-                res.json({ "loginCode": "02" })
+                res.json({ "returnCode": "02" })
             }
         });
     });
@@ -82,9 +82,9 @@ router.get('/idCheck', function(req, res) {
             }
             if (result.length > 0) {
                 console.log("★★★ result ★★★ \n",result[0]);
-                res.json({ "loginCode": '01', "loginId": result[0].subSchema.mem_id });
+                res.json({ "returnCode": '01', "loginId": result[0].subSchema.mem_id });
             } else {
-                res.json({ "loginCode": "02" })
+                res.json({ "returnCode": "02" })
             }
         });
     });
