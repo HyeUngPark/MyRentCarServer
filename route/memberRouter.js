@@ -81,7 +81,7 @@ router.get('/idCheck', function(req, res) {
                 return res.status(500).send("select error >> " + err)
             }
             if (result.length > 0) {
-                res.json({ "loginCode": '01', loginId: result.id });
+                res.json({ "loginCode": '01', loginId: result.mem_id });
             } else {
                 res.json({ "loginCode": "02" })
             }
