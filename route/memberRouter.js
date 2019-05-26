@@ -73,7 +73,7 @@ router.get('/idCheck', function(req, res) {
         
         schema.find({
             workSection: 'MEMBER',
-            "subSchema.mem_id": params.loginId,
+            "subSchema.mem_phone": params.phoneNumber,
             "subSchema.mem_name": params.name
         }, function(err, result) {
             if (err) {
