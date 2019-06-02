@@ -99,10 +99,10 @@ router.post('/login', function(req, res) {
         if(1){
             var transporter = nodemailer.createTransport({
                 service: 'gmail'
-                // ,prot : 587
+                ,prot : 587
                 ,host :'smtp.gmlail.com'
-                // ,secure : false
-                // ,requireTLS : true
+                ,secure : false
+                ,requireTLS : true
                 , auth: {
                   user: 'dev.hyeung@gmail.com'
                   ,pass: 'clsdo123!'
@@ -111,7 +111,6 @@ router.post('/login', function(req, res) {
         });
         
         var mailOptions = {
-              key : "AIzaSyDoJWrdVwBD0ZLcnEkP65vDUMKR6Nnn0wQ",
                 from: 'dev.hyeung@gmail.com',
                 to: 'phu8460@naver.com',
                 subject: 'MyRentCar 비밀번호 초기화',
