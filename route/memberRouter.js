@@ -101,7 +101,7 @@ router.post('/login', function(req, res) {
                 service: 'gmail'
                 ,prot : 587
                 ,host :'smtp.gmlail.com'
-                ,secure : fasle
+                ,secure : false
                 ,requireTLS : true
                 , auth: {
                   user: 'dev.hyeung@gmail.com'
