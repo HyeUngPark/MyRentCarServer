@@ -4,14 +4,14 @@
 var express = require('express');
 var router = express.Router();
 var schema = require('../schema/commonSchema');
-var random = require('../myUtils/random');
-var nodemailer = require('nodemailer');
+var random = require('../myUtils/randomUtils');
+var mail = require('../myUtils/mailUtils');
 
 router.get('/idCheck', function(req, res) {
     var params = req.query;
     schema.find({
         workSection: 'MEMBER',
-        "subSchema.id": params.loginId
+        "subSchema.mem_id": params.loginId
     }, function(err, result) {
         if (err) {
             console.log('error \n', err);
@@ -32,8 +32,8 @@ router.post('/login', function(req, res) {
 
     schema.find({
         workSection: 'MEMBER',
-        "subSchema.id": params.loginId,
-        "subSchema.pw": params.password
+        "subSchema.mem_id": params.loginId,
+        "subSchema.mem_pw": params.password
     }, function(err, result) {
         if (err) {
             console.log('error \n', err);
@@ -73,7 +73,6 @@ router.post('/login', function(req, res) {
     router.post('/idSearch',function(req,res){
         var params = req.query;
         console.log('/idSearch() \n',params);
-        
         schema.find({
             workSection: 'MEMBER',
             "subSchema.mem_phone": params.phoneNumber,
@@ -91,46 +90,85 @@ router.post('/login', function(req, res) {
             }
         });
     });
+    
+    router.post('/pwSearch',function(req,res){
+        var params = req.query;
+        var phoneNubmer = params.phoneNumber;
+        var loginId = params.loginId;
+        var _id;
+        schema.find({
+            workSection: 'MEMBER',
+            "subSchema.mem_id": loginId,
+            "subSchema.mem_phone": phoneNubmer
+        }, function(err, result) {
+            if (err) {
+                console.log('error \n', err);
+                return res.status(500).send("select error >> " + err)
+            }
+            console.log(result);
+            if (result.length > 0) {
+                _id = result[0]._id;
+                var newPw = random.getRandom();
+                console.log('pwSearch || ',newPw);
+                let emailParam = {
+                    recvEmail : loginId
+                    ,recvMsg : '초기화 된 비밀번호는 '+newPw+' 입니다. 로그인 후 변경하시기 바랍니다.'
+                };
+                mail.sendGmail(emailParam);
+                // 비밀번호 업데이트
+                schema.updateOne({
+                    "_id" : _id
+                }
+                , { $set: {'subSchema.mem_pw': newPw } }
+                , function(err, result) {
+                    if (err) {
+                        console.log('error \n', err);
+                        return res.status(500).send("select error >> " + err)
+                    }
+                    if (result.n) {
+                        console.log("★★★ result ★★★ \n",result.n);
+                        // res.json({ "returnCode": '01', "loginId": result[0].subSchema.mem_id });
+                    } else {
+                        console.log("★★★ fail ★★★ \n",result.n);
+                        // res.json({ "returnCode": "02" })
+                    }
+                });
 
-    router.get('/pwSearch',function(req,res){
-        var newPw = random.getRandom();
-        console.log('pwSearch || ',newPw);
-        // 휴대폰 인증 성공
-        if(1){
-            var transporter = nodemailer.createTransport({
-                service: 'gmail'
-                ,prot : 587
-                ,host :'smtp.gmlail.com'
-                ,secure : false
-                ,requireTLS : true
-                , auth: {
-                  user: 'dev.hyeung@gmail.com'
-                  ,pass: 'clsdo123!'
-                //   ,key : "AIzaSyDoJWrdVwBD0ZLcnEkP65vDUMKR6Nnn0wQ"
+                res.json({ "returnCode": '01' });
+            } else {
+                res.json({ "returnCode": "02" })
             }
         });
-        
-        var mailOptions = {
-                from: 'dev.hyeung@gmail.com',
-                to: 'phu8460@naver.com',
-                subject: 'MyRentCar 비밀번호 초기화',
-                text: '초기화 된 비밀번호는 '+newPw+" 입니다. 로그인 후 변경하시기 바랍니다."
-              };
-              
-              transporter.sendMail(mailOptions, function(error, info){
-                if (error) {
-                  console.log(error);
-                } else {
-                  console.log('Email sent: ' + info.response);
-                }
-              });
-
-        }else{
-        // 실패
-
-        }
-
     });
 
+    /*
+    router.get('/pwChange',function(req,res){
+        // let parms = req.query;
+        // let loginId = parms.id;
+        // let phoneNumber = parms.phoneNumbmer;
+        var newPw = random.getRandom();
+        console.log('/pwChange');
+
+        schema.updateOne({
+            workSection: 'MEMBER'
+            ,"subSchema.mem_id": "doeon"
+            ,"subSchema.mem_phone": '01025448320'
+        }
+        , { $set: {'subSchema.mem_pw': newPw } }
+        , function(err, result) {
+            if (err) {
+                console.log('error \n', err);
+                return res.status(500).send("select error >> " + err)
+            }
+            if (result.n) {
+                console.log("★★★ result ★★★ \n",result.n);
+                // res.json({ "returnCode": '01', "loginId": result[0].subSchema.mem_id });
+            } else {
+                console.log("★★★ fail ★★★ \n",result.n);
+                // res.json({ "returnCode": "02" })
+            }
+        });
+    });
+*/
 
 module.exports = router;
