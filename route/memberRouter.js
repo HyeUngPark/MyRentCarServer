@@ -98,11 +98,15 @@ router.post('/login', function(req, res) {
         // 휴대폰 인증 성공
         if(1){
             var transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
+                service: 'gmail'
+                ,prot : 587
+                ,host :'smtp.gmlail.com'
+                ,secure : fasle
+                ,requireTLS : true
+                , auth: {
                   user: 'dev.hyeung@gmail.com'
                   ,pass: 'clsdo123!'
-                  ,key : "AIzaSyDoJWrdVwBD0ZLcnEkP65vDUMKR6Nnn0wQ"
+                //   ,key : "AIzaSyDoJWrdVwBD0ZLcnEkP65vDUMKR6Nnn0wQ"
                 }
               });
 
