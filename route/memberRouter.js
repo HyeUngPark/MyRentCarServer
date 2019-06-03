@@ -58,6 +58,7 @@ router.post('/login', function(req, res) {
                 mem_pw: params.password,
                 mem_name: params.name,
                 // mem_email : params.email,
+                // mem_address : params.email,
                 mem_phone : params.phoneNumber,
                 mem_emailYn : 'N',
                 mem_smsYn : 'N'       
@@ -90,7 +91,7 @@ router.post('/login', function(req, res) {
             }
         });
     });
-    
+
     router.post('/pwSearch',function(req,res){
         var params = req.query;
         var phoneNubmer = params.phoneNumber;
@@ -110,9 +111,11 @@ router.post('/login', function(req, res) {
                 _id = result[0]._id;
                 var newPw = random.getRandom();
                 console.log('pwSearch || ',newPw);
+                
                 let emailParam = {
-                    recvEmail : loginId
-                    ,recvMsg : '초기화 된 비밀번호는 '+newPw+' 입니다. 로그인 후 변경하시기 바랍니다.'
+                    toEmail : loginId
+                    ,subject  : 'MyRentCar 비밀번호 초기화'
+                    ,text : '초기화 된 비밀번호는 '+newPw+' 입니다. 로그인 후 변경하시기 바랍니다.'
                 };
                 mail.sendGmail(emailParam);
                 // 비밀번호 업데이트
@@ -151,8 +154,8 @@ router.post('/login', function(req, res) {
 
         schema.updateOne({
             workSection: 'MEMBER'
-            ,"subSchema.mem_id": "doeon"
-            ,"subSchema.mem_phone": '01025448320'
+            ,"subSchema.mem_id": "*"
+            ,"subSchema.mem_phone": '*'
         }
         , { $set: {'subSchema.mem_pw': newPw } }
         , function(err, result) {

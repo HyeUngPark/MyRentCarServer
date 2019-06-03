@@ -19,11 +19,11 @@ var mailSender = {
             }
         });
         var mailOptions = {
-                from: 'dev.hyeung@gmail.com',
-                to: param.recvEmail,
-                subject: 'MyRentCar 비밀번호 초기화',
-                text: param.recvMsg
-            };
+            from: 'dev.hyeung@gmail.com',
+            to: param.toEmail,
+            subject: param.subject,
+            text: param.text
+        };
             
         transporter.sendMail(mailOptions, function(error, info){
             if (error) {
