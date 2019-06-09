@@ -63,12 +63,16 @@ router.post('/login', function(req, res) {
                 mem_emailYn : 'N',
                 mem_smsYn : 'N'       
             }
-        },function(err,result){
+        }
+        /* ,function(err,result){
             if (err) {
                 console.log('error \n', err);
                 return res.status(500).send("select error >> " + err)
             }
             if(result.length>0){
+                res.json({
+                    returnCode: '01'
+                });
                 res.json({
                     returnCode: '01'
                 });
@@ -78,6 +82,17 @@ router.post('/login', function(req, res) {
                 });
             }
             console.log('joinResult\n',result);
+        } */
+        ).then((result)=>{
+            console.log("★★join success★★\n",result);
+            res.json({
+                returnCode: '01'
+            });
+        }).catch((err)=>{
+            console.log("★★join fail★★\n",err);
+            res.json({
+                returnCode: '02'
+            });
         });
     });
 
