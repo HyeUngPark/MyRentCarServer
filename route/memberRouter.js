@@ -64,7 +64,7 @@ router.post('/login', function(req, res) {
                 mem_smsYn : 'N'       
             }
         });
-        console.log(result);
+        console.log('joinResult\n',result);
         if(result.n){
             res.json({
                 returnCode: '01'
