@@ -9,4 +9,3 @@ db.once('open', function(){
 });
 
 mongoose.connect(process.env.mongoConfig, {useNewUrlParser:true});
-// mongoose.connect('mongodb://localhost:27017/MyRentCar',{useNewUrlParser:true});
