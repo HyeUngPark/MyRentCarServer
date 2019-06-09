@@ -65,10 +65,15 @@ router.post('/login', function(req, res) {
             }
         });
         console.log(result);
-        res.json({
-            returnCode: '01',
-            name: params.name
-        });
+        if(result.n){
+            res.json({
+                returnCode: '01'
+            });
+        }else{
+            res.json({
+                returnCode: '02'
+            });
+        }
     });
 
     router.post('/idSearch',function(req,res){
