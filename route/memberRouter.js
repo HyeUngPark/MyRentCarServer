@@ -50,7 +50,7 @@ router.post('/login', function(req, res) {
     router.post('/join', function(req, res) {
         var params = req.query;
         console.log('/join() \n',params);
-        var result = schema.create({
+        schema.create({
             workSection: 'MEMBER' // 업무 구분 PRODUCT(상품) ORDER(주문) MEMBER(회원)
             ,firstWriteDate: new Date() // 최초작성일
             ,subSchema: { // 업무별 하위 스키마
@@ -63,17 +63,22 @@ router.post('/login', function(req, res) {
                 mem_emailYn : 'N',
                 mem_smsYn : 'N'       
             }
+        },function(err,result){
+            if (err) {
+                console.log('error \n', err);
+                return res.status(500).send("select error >> " + err)
+            }
+            if(result.n){
+                res.json({
+                    returnCode: '01'
+                });
+            }else{
+                res.json({
+                    returnCode: '02'
+                });
+            }
+            console.log('joinResult\n',result);
         });
-        console.log('joinResult\n',result);
-        if(result.n){
-            res.json({
-                returnCode: '01'
-            });
-        }else{
-            res.json({
-                returnCode: '02'
-            });
-        }
     });
 
     router.post('/idSearch',function(req,res){
