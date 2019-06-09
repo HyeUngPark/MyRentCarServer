@@ -40,7 +40,7 @@ router.post('/login', function(req, res) {
             return res.status(500).send("select error >> " + err)
         }
         if (result.length > 0) {
-            res.json({ "returnCode": '01', name: result[0].subSchema.name });
+            res.json({ "returnCode": '01', name: result[0].subSchema.mem_name });
         } else {
             res.json({ "returnCode": "02" })
         }
@@ -57,33 +57,12 @@ router.post('/login', function(req, res) {
                 mem_id: params.loginId,
                 mem_pw: params.password,
                 mem_name: params.name,
-                // mem_email : params.email,
-                // mem_address : params.email,
+                mem_address : params.address,
                 mem_phone : params.phoneNumber,
                 mem_emailYn : 'N',
                 mem_smsYn : 'N'       
             }
-        }
-        /* ,function(err,result){
-            if (err) {
-                console.log('error \n', err);
-                return res.status(500).send("select error >> " + err)
-            }
-            if(result.length>0){
-                res.json({
-                    returnCode: '01'
-                });
-                res.json({
-                    returnCode: '01'
-                });
-            }else{
-                res.json({
-                    returnCode: '02'
-                });
-            }
-            console.log('joinResult\n',result);
-        } */
-        ).then((result)=>{
+        }).then((result)=>{
             console.log("★★join success★★\n",result);
             res.json({
                 returnCode: '01'
