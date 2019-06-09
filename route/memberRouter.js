@@ -66,7 +66,7 @@ router.post('/login', function(req, res) {
         });
         console.log(result);
         res.json({
-            login: 'success',
+            returnCode: '01',
             name: params.name
         });
     });
