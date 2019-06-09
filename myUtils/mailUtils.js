@@ -1,6 +1,12 @@
 /* 
     메일 발송 모듈(gmail)
 */
+var env = require('dotenv');
+env.config();
+var email = process.env.email;
+var mailPw = process.env.mailPw;
+
+
 
 var nodemailer = require('nodemailer');
 
@@ -13,13 +19,12 @@ var mailSender = {
             ,secure : false
             ,requireTLS : true
             , auth: {
-              user: 'dev.hyeung@gmail.com'
-              ,pass: 'clsdo123!'
-            //   ,key : "AIzaSyDoJWrdVwBD0ZLcnEkP65vDUMKR6Nnn0wQ"
+              user: email
+              ,pass: mailPw
             }
         });
         var mailOptions = {
-            from: 'dev.hyeung@gmail.com',
+            from: email,
             to: param.toEmail,
             subject: param.subject,
             text: param.text
