@@ -68,7 +68,7 @@ router.post('/login', function(req, res) {
                 console.log('error \n', err);
                 return res.status(500).send("select error >> " + err)
             }
-            if(result.n){
+            if(result.length>0){
                 res.json({
                     returnCode: '01'
                 });
